@@ -970,13 +970,38 @@ do
   -- require 'kickstart.plugins.indent_line'
   -- require 'kickstart.plugins.lint'
   -- require 'kickstart.plugins.autopairs'
-  -- require 'kickstart.plugins.neo-tree'
+  require 'kickstart.plugins.neo-tree'
+  -- Space + e 누르면 neo-tree 토글
+  vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { silent = true, desc = 'Toggle File Explorer' })
   -- require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
+  --
+  -- SSH + Zellij + Ghostty 최적화 클립보드 설정
+  -- 복사(Yank)할 때 불필요하게 터미널에 데이터를 요청(Paste)하는 과정을 끊어주어 타임아웃을 막습니다.
+  local function no_paste()
+    return function(_)
+      return vim.fn.getreg '"'
+    end
+  end
+
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = no_paste(), -- 붙여넣기는 안전하게 터미널 자체 단축키를 쓰도록 바이패스
+      ['*'] = no_paste(),
+    },
+  }
+
+  -- 모든 Yank(y) 작업이 시스템 클립보드(+)로 넘어가도록 설정
+  vim.opt.clipboard = 'unnamedplus'
 
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- require 'custom.plugins'
+  require 'custom.plugins'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
