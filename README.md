@@ -7,7 +7,7 @@
 
 ```sh
 # 1. 의존성 (macOS)
-brew install neovim git make unzip ripgrep fd tree-sitter imagemagick
+brew install neovim git make unzip ripgrep fd tree-sitter-cli imagemagick
 
 # 2. 설정 받기
 git clone https://github.com/moonjong93/nvim.git ~/.config/nvim
