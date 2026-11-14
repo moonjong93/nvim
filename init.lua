@@ -209,7 +209,8 @@ do
     },
   }
 
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+  vim.keymap.set('n', '<leader>w', '<cmd>write<CR>', { desc = '[W]rite (save) file' })
+  vim.keymap.set('n', '<leader>q', '<cmd>quit<CR>', { desc = '[Q]uit window' })
 
   -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
   -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -447,6 +448,20 @@ do
 
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
+end
+
+-- ============================================================
+-- IMAGE PREVIEW (snacks.nvim image + picker)
+-- Ghostty(kitty graphics protocol)에서 png 등을 버퍼/피커에서 렌더링
+-- ============================================================
+do
+  vim.pack.add { gh 'folke/snacks.nvim' }
+  require('snacks').setup {
+    image = { enabled = true },
+    picker = { enabled = true },
+  }
+  -- telescope 프리뷰는 이미지를 못 보여주므로, 이미지 프리뷰가 되는 snacks 피커를 따로 둠
+  vim.keymap.set('n', '<leader>sp', function() Snacks.picker.files() end, { desc = '[S]earch files ([P]review images)' })
 end
 
 -- ============================================================
