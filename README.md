@@ -28,6 +28,8 @@ alternative [installation methods below](#alternative-neovim-installation-method
 
 ### Install External Dependencies
 
+`brew install git make unzip ripgrep fd tree-sitter xclip`
+
 External Requirements:
 - Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation),
